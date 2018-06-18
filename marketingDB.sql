@@ -6,7 +6,9 @@ CREATE TABLE information (
     age int(2),
     amount decimal(10,2) not null,
     race varchar(20),
-    popCount int not null
+    popCount int not null,
+    lng varchar(20),
+    lat varchar(20)
 );
 
 /* Zip Code data from Python imported */
