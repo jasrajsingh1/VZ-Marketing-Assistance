@@ -1,12 +1,12 @@
 CREATE TABLE information (
-    objectID int primary key,
+    objectID integer primary key,
     town varchar(20),
     streetaddress varchar(100),
     zipcode char(5),
-    age int,
+    age integer,
     amount decimal(10,2) not null,
     race varchar(20),
-    popCount int not null,
+    popCount integer not null,
     lng varchar(20),
     lat varchar(20)
 );
