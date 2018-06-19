@@ -1,25 +1,11 @@
-from flask import Flask, request
-from flask_restful import Resource, Api
+import urllib2, json
 
-ret = request.url('http://api.github.com/')
-print ret.status_code
+def api_search():
+    url = 'https://api.census.gov/data/2015/acs5?get=B07010_001E&for=zip+code+tabulation+area:20878'
+    json_obj = urllib2.urlopen(url)
+    data = json.load(json_obj)
 
-'''
-e = create_engine('sqlite:///')
-
-app = Flask(__name__)
-api = Api(app)
-
-class information(Resource):
-    def get(self):
-        # Connect to database
-        conn = e.connect()
-        # Perform query and return JSON data
-        query = conn.execute("select * from information")
-        return {'info: [i[0] for i in query.cursor.fetchall()]'}
-
-api.add_resource(information, '/info')
+    print data
 
 if __name__ == '__main__':
-    app.run()
-'''
+    api_search()
