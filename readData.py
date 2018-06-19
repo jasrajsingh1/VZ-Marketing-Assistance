@@ -1,9 +1,10 @@
 import csv, urllib2, json, time
-import pymysql
+import psycopg2, datetime
 from itertools import chain
 from uszipcode import ZipcodeSearchEngine
 
-db = pymysql.connect(host="localhost",user="root",password="root",database="marketingDB")
+## MAKE MODIFICATIONS!!!
+db = psycopg2.connect(dbname='marketingDBPSQL', user='burda9l')
 
 cursor = db.cursor()
 
@@ -96,7 +97,7 @@ for arr in results:
             overallData = str(overallData)
 
             if cdata > 1000:
-                insertStatement = "INSERT INTO information VALUES("+objId+","+'"'+town+'"'+","+'"'+addr+'"'+","+'"'+zipcode+'"'+","+mdata+","+income+","+'"'+race+'"'+","+cdata+","+'"'+lon+'"'+","+'"'+lat+'"'+");"
+                insertStatement = "INSERT INTO information VALUES("+objId+","+"'"+town+"'"+","+"'"+addr+"'"+","+"'"+zipcode+"'"+","+mdata+","+income+","+"'"+race+"'"+","+cdata+","+"'"+lon+"'"+","+"'"+lat+"'"+");"
                 print insertStatement
                 cursor.execute(insertStatement)
                 db.commit()
