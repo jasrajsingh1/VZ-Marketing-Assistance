@@ -40,9 +40,9 @@ th, td {
 				var html = "";
 				var i;
 	    		for(i = 0; i < response.length; i++){
-	    			html += "<tr><td>" + response[i].lat "</td>";
-	    			html += "<td>" + response[i].lng "</td>";
-	    			html += "<td>" + response[i].zipcode "</td>";
+	    			html += "<tr><td>" + response[i].lat + "</td>";
+	    			html += "<td>" + response[i].lng + "</td>";
+	    			html += "<td>" + response[i].zipcode + "</td>";
 	    			html += "<td>" + reponse[i].streetaddress + "</td>";
 	    			html += "<td>" + reponse[i].town + "</td>";
 	   				html += "<td>" + response[i].age + "</td>";
@@ -142,7 +142,11 @@ th, td {
 				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>Latitud</th>
+							<th>Longitud</th>
 							<th>Zip Code</th>
+							<th>Street Address</th>
+							<th>Town</th>
 							<th class="age">Average Age</th>
 							<th class="race">Mode Race</th>
 							<th class="income">Average Income</th>
@@ -150,27 +154,7 @@ th, td {
 						</tr>
 					</thead>
 					<tbody id="tableBody">
-						<tr>
-							<td>06001</td>
-							<td class="age">18</td>
-							<td class="race">Hispanic</td>
-							<td class="income">50000</td>
-							<td class="population">5000</td>
-						</tr>
-						<tr>
-							<td>06010</td>
-							<td class="age">24</td>
-							<td class="race">Asian</td>
-							<td class="income">500000</td>
-							<td class="population">70000</td>
-						</tr>
-						<tr>
-							<td>06002</td>
-							<td class="age">47</td>
-							<td class="race">Black</td>
-							<td class="income">100000</td>
-							<td class="population">80000</td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>
