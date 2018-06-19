@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Verizon Marketing</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3Jya-fX9o3KwRcX-w6b-OUf6zkrx848k&callback=myMap"></script>
+<style>
+th, td {
+	text-align: center;
+}
+</style>
+<script>
+	var jsonResponse;
+	var map;
+	var markers = [];
+	
+	function myMap() {
+		
+		var mapProp = {
+			center : new google.maps.LatLng(41.763710, -72.685097),
+			zoom : 9,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		};
+
+		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+	}
+
+	$(document).ready(function() {
+
+		$.ajax({
+			url : 'data',
+			type : 'GET',
+			datatype : 'json',
+			success : function(response) {
+				jsonResponse = response;
+				var html = "";
+				var i;
+	    		for(i = 0; i < response.length; i++){
+	    			html += "<tr><td>" + response[i].lat "</td>";
+	    			html += "<td>" + response[i].lng "</td>";
+	    			html += "<td>" + response[i].zipcode "</td>";
+	    			html += "<td>" + reponse[i].streetaddress + "</td>";
+	    			html += "<td>" + reponse[i].town + "</td>";
+	   				html += "<td>" + response[i].age + "</td>";
+	   				html += "<td>" + response[i].race + "</td>";
+	   				html += "<td>" + response[i].amount + "</td>";
+	   				html += "<td>" + response[i].popCount + "</td></tr>";
+	   			}
+	    		$("#tableBody").html(html);
+			}
+		});
+		
+		$("#submit").click(function() {
+			var minAge = $("#minimumAge").val();
+			var maxAge = $("#maximumAge").val();
+			var race = $("#races").val().toLowerCase();
+			var minIncome = $("#minimumIncome").val();
+			var maxIncome = $("#maximumIncome").val();
+			var minPopulation = $("#minimumPopulation").val();
+			var maxPopulation = $("#maximumPopulation").val();
+			
+			if(makers.length != 0){
+				var i;
+				for(i = 0; i < markers.length; i++){
+					markers[i].setMap(null);
+				}
+			}
+			
+			$("#tableBody tr").filter(function() {
+				var lon = parseDouble($(this).find("td:eq(0)").text());
+				var lng = parseDouble($(this).find("td:eq(1)").text());
+				var age = parseInt($(this).find("td:eq(5)").text());
+				var selectedRace = $(this).find("td:eq(6)").text();
+				var income = parseInt($(this).find("td:eq(7)").text());
+				var population = parseInt($(this).find("td:eq(8)").text());
+					
+				var ageChecked = $("#age").is(':checked');
+				var raceChecked = $("#race").is(':checked');
+				var incomeChecked = $("#income").is(':checked');
+				var populationChecked = $("#population").is(':checked');
+					
+				var ageCondition = age >= minAge && age <= maxAge;
+				var raceCondition = selectedRace.toLowerCase().indexOf(race) > -1;
+				var incomeCondition = income >= minIncome && income <= maxIncome;
+				var populationCondition = population >= minPopulation && population <= maxPopulation;
+				
+				var finalResult = true;
+				
+				if(ageChecked){
+					finalResult = finalResult && ageCondition;
+				} 
+				if(raceChecked){
+					finalResult = finalResult && raceCondition;
+				}
+				if(incomeChecked){
+					finalResult = finalResult && incomeCondition;
+				}
+				if(populationChecked){
+					finalResult = finalResult && populationCondition;
+				}
+				if(!ageChecked && !raceChecked && !incomeChecked && !populationChecked){
+					finalResult = false;
+				}
+				if(finalResult){
+					var myLatLng = {
+						lat : lat,
+						lng : lng
+					};
+					var marker = new google.maps.Marker({
+						position : myLatLng,
+						map : map
+					});
+					marker.setMap(map);
+					makers.push(marker);
+				}
+				
+				$(this).toggle(finalResult);
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+	<div class="jumbotron text-center">
+		<h1>Verizon Marketing Tool</h1>
+	</div>
+
+	<div align="center" class="container">
+		<div class="row">
+			<h3>Map</h3>
+			<div id="googleMap"
+				style="width: 100%; height: 400px; background-color: gray"></div>
+		</div>
+		<div class="row">
+			<h3>Table</h3>
+			<div style="height: 250px;overflow: auto;">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Zip Code</th>
+							<th class="age">Average Age</th>
+							<th class="race">Mode Race</th>
+							<th class="income">Average Income</th>
+							<th class="population">Population</th>
+						</tr>
+					</thead>
+					<tbody id="tableBody">
+						<tr>
+							<td>06001</td>
+							<td class="age">18</td>
+							<td class="race">Hispanic</td>
+							<td class="income">50000</td>
+							<td class="population">5000</td>
+						</tr>
+						<tr>
+							<td>06010</td>
+							<td class="age">24</td>
+							<td class="race">Asian</td>
+							<td class="income">500000</td>
+							<td class="population">70000</td>
+						</tr>
+						<tr>
+							<td>06002</td>
+							<td class="age">47</td>
+							<td class="race">Black</td>
+							<td class="income">100000</td>
+							<td class="population">80000</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<h3>Options</h3>
+			<div class="col-4">
+				<form>
+					<div class="row">
+						<div class="col-4">
+							<label><input type="checkbox" id="age" value="" checked>Age</label>
+							<input type="number" id="minimumAge" min="0" max="100" placeholder="Min"> 
+							<input type="number" id="maximumAge" min="0" max="100" placeholder="Max">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" id="race" value="" checked>Race</label>
+							</div>
+							<select id="races">
+								<option>Hispanic</option>
+								<option>Black</option>
+								<option>Asian</option>
+								<option>White</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" id="income" value=""
+									checked>Income</label>
+							</div>
+							<input type="number" id="minimumIncome" min="0" max="1000000"
+								placeholder="Min"> <input type="number"
+								id="maximumIncome" min="0" max="1000000" placeholder="Max">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4">
+							<div class="checkbox-inline">
+								<label><input type="checkbox" id="population" value=""
+									checked>Population</label>
+							</div>
+							<input type="number" id="minimumPopulation" min="0" max="1000000000"
+								placeholder="Min"> <input type="number"
+								id="maximumPopulation" min="0" max="1000000000" placeholder="Max">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<br> <br>
+		<button id="submit" class="btn btn-danger">Submit</button>
+		<br> <br>
+	</div>
+
+</body>
+</html>
