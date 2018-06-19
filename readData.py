@@ -19,9 +19,9 @@ with open('/Users/burda9l/Documents/VZ-Marketing-Assistance/ROW_Billboard_data.c
 line_num = 1
 for arr in results:
         lat_lon_str = arr[0]
-      #  objId = arr[1]
-    # town = arr[3]
-       # addr = arr[4]
+        objId = arr[1]
+        town = arr[3]
+        addr = arr[4]
 
         if lat_lon_str:
             lon = float(lat_lon_str.split(" ")[1].split("(")[1])
@@ -65,4 +65,4 @@ for arr in results:
             cdata = list(chain.from_iterable(cdata))
             cdata = int(''.join(cdata[2]))
 
-
+        
