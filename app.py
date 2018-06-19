@@ -16,6 +16,7 @@ def home():
 # =================#
 
 #Add endpoints for DB queries of interest.
+api.add_resource(h.AllInfoHandler, '/NoFilter') 
 
 # Filters records by a specified race
 # done

@@ -16,6 +16,16 @@ def mapToDict(row):
     mappedResult['lat']=row[9]
     return mappedResult
 
+class AllInfoHandler(Resource):
+    def get(self):
+        dao = InfoDAO()
+        aList = dao.noFilter()
+        resultList = []
+        for row in aList:
+            result = mapToDict(row)
+            resultList.append(result)
+        return jsonify(AllInformation= resultList)
+
 class RaceHandler(Resource):
     def get(self,aRace):
         dao = InfoDAO()

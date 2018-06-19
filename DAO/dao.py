@@ -5,6 +5,14 @@ class InfoDAO:
     def __init__(self):
         #connect to DB here
 
+    def noFilter(self):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information;'''
+        cursor.execute(query)
+        result = cursor.fetchone()
+        return result
+
     def filterByRace(self, aRace):
         cursor = self.conn.cursor()
         query = '''Select *
