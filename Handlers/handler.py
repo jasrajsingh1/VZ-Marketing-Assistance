@@ -1,5 +1,8 @@
 from flask import jsonify, request
-from DAO.dao import InfoDAO
+
+import sys
+sys.path.insert(0,'/Users/tarraon/Documents/VZ-Marketing-Assistance/DAO')
+import dao
 from flask_restful import Resource, reqparse
 
 def mapToDict(row):

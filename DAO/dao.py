@@ -1,9 +1,10 @@
 import psycopg2
-from config import DBconfig
+#from config import DBconfig
 
 class InfoDAO:
     def __init__(self):
-        #connect to DB here
+        connection_url = "dbname=VMATdb user=ec2-user password=Verizon"
+        self.conn = psycopg2._connect(dbname='VMATdb', user='ec2-user', password='Verizon')
 
     def noFilter(self):
         cursor = self.conn.cursor()
