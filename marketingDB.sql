@@ -3,7 +3,7 @@ CREATE TABLE information (
     town varchar(20),
     streetaddress varchar(30),
     zipcode char(5),
-    age int(2),
+    age int,
     amount decimal(10,2) not null,
     race varchar(20),
     popCount int not null,
