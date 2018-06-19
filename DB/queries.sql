@@ -7,10 +7,11 @@ Where race = aRace;
 Select *
 From information
 Where age num1 and num2;
---Count :
+
+--population :
 Select *
 From information
-Where count Between num1 and num2;
+Where population Between num1 and num2;
 
 --Income: 
 Select *
@@ -23,11 +24,11 @@ From information
 Where age Between num1 and num2
 AND race = aRace;
 
---Race and Count:
+--Race and population:
 Select *
 From information
 Where race = a Race
-AND count between num1 and num2;
+AND population between num1 and num2;
 
 --Race and  Income:
 Select *
@@ -35,28 +36,28 @@ From information
 Where race = aRace
 AND income Between num1 and num2;
 
---Age and count:
+--Age and population:
 Select *
 From information
 Where age Between num1 and num2
-AND count between num1 and num2;
+AND population between num1 and num2;
 
 --Age and income:
 Select *
 From information
 Where age Between num1 and num2;
 
-10. Count and income:
+10. population and income:
 Select *
 From information
-Where count between num1 and num2
+Where population between num1 and num2
 AND income between num1 and num2;
 
---Race, age and count:
+--Race, age and population:
 Select *
 From information
 Where age between num1 and num2
-AND count between num1 and num2
+AND population between num1 and num2
 AND race = aRace;
 
 --Race, age, and income:
@@ -66,17 +67,17 @@ Where race = aRace
 AND age between num1 and num2
 AND income between num1 and num2;
 
---Age, count, and income:
+--Age, population, and income:
 Select *
 From information
-Where count between num1 and num2
+Where population between num1 and num2
 AND age between num1 and num2
 AND income between num1 and num2;
 
---Race, age, count, and  income:
+--Race, age, population, and  income:
 Select *
 From information
 Where race = aRace
 AND age between num1 and num2
-AND count between num1 and num2
+AND population between num1 and num2
 AND income between num1 and num2
