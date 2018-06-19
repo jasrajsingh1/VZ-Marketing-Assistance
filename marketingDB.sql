@@ -1,7 +1,7 @@
 CREATE TABLE information (
     objectID int primary key,
     town varchar(20),
-    streetaddress varchar(30),
+    streetaddress varchar(100),
     zipcode char(5),
     age int(2),
     amount decimal(10,2) not null,
@@ -22,6 +22,5 @@ INSERT INTO information VALUES(4, "El Paso", "670 McKinney St", "77067", 30, 0, 
 INSERT INTO information VALUES(5, "New York", "670 McKinney St", "77067", 30, 9, "White", 5000);
 
 SELECT * FROM information
-
 */
 
