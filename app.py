@@ -51,27 +51,27 @@ api.add_resource(h.RaceIncomeHandler, '/filter/race/<string:aRace>/income_start=
 
 # #Filters records by a specified age and population range
 # # done
-api.add_resource(h.AgePopHandler, '/filter/age_start=<int:minVal>&end=<int:maxVal>/population_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.AgePopHandler, '/filter/age_start=<int:minAge>&end=<int:maxAge>/population_start=<int:minPop>&end=<int:maxPop>')
 
 # #Filters records by a specified age and income range
 # # done
-api.add_resource(h.AgeIncomeHandler, '/filter/age_start=<int:minVal>&end=<int:maxVal>/income_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.AgeIncomeHandler, '/filter/age_start=<int:minAge>&end=<int:maxAge>/income_start=<int:minInc>&end=<int:maxInc>')
 
 # #Filters records by a specified population and income range
 # # done
-api.add_resource(h.PopulationIncomeHandler, '/filter/population_start=<int:minVal>&end=<int:maxVal>/income_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.PopulationIncomeHandler, '/filter/population_start=<int:minPop>&end=<int:maxPop>/income_start=<int:minInc>&end=<int:maxInc>')
 
 # #Filters records by a specified age and population range
 # # done
-api.add_resource(h.AgePopulationHandler, '/filter/race/<string:aRace>/age_start=<int:minVal>&end=<int:maxVal>/population_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.AgePopulationHandler, '/filter/race/<string:aRace>/age_start=<int:minAge>&end=<int:maxAge>/population_start=<int:minPop>&end=<int:maxPop>')
 
 # #Filters records by a specified age, population, and income range
 # # done
-api.add_resource(h.AgePopulationIncomeHandler, '/filter/age_start=<int:minVal>&end=<int:maxVal>/population_start=<int:minVal>&end=<int:maxVal>/income_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.AgePopulationIncomeHandler, '/filter/age_start=<int:minAge>&end=<int:maxAge>/population_start=<int:minPop>&end=<int:maxPop>/income_start=<int:minInc>&end=<int:maxInc>')
 
 # #Filters records by a specified race, age, population, and income range
 # #done
-api.add_resource(h.RaceAgePopulationIncomeHandler, '/filter/race/<string:aRace>/age_start=<int:minVal>&end=<int:maxVal>/population_start=<int:minVal>&end=<int:maxVal>/income_start=<int:minVal>&end=<int:maxVal>')
+api.add_resource(h.RaceAgePopulationIncomeHandler, '/filter/race/<string:aRace>/age_start=<int:minAge>&end=<int:maxAge>/population_start=<int:minPop>&end=<int:maxPop>/income_start=<int:minInc>&end=<int:maxInc>')
 
 if(__name__=='__main__'):
     app.run(debug = True, port = 8000)

@@ -20,7 +20,7 @@ def mapToDict(row):
 
 class AllInfoHandler(Resource):
     def get(self):
-        dao = d.d.InfoDAO()
+        dao = d.InfoDAO()
         aList = dao.noFilter()
         resultList = []
         for row in aList:
