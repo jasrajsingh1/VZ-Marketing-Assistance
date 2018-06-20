@@ -1,8 +1,7 @@
 from flask import jsonify, request
 
 import sys
-sys.path.insert(0,'/Users/tarraon/Documents/VZ-Marketing-Assistance/DAO')
-import dao
+from DAO import dao as d
 from flask_restful import Resource, reqparse
 
 def mapToDict(row):
@@ -12,7 +11,7 @@ def mapToDict(row):
     mappedResult['streetaddress']=row[2]
     mappedResult['zipcode']=row[3]
     mappedResult['age']=row[4]
-    mappedResult['amount']=row[5]
+    mappedResult['amount']=float(row[5])
     mappedResult['race']=row[6]
     mappedResult['popCount']=row[7]
     mappedResult['lng']=row[8]
@@ -21,7 +20,7 @@ def mapToDict(row):
 
 class AllInfoHandler(Resource):
     def get(self):
-        dao = InfoDAO()
+        dao = d.d.InfoDAO()
         aList = dao.noFilter()
         resultList = []
         for row in aList:
@@ -31,7 +30,7 @@ class AllInfoHandler(Resource):
 
 class RaceHandler(Resource):
     def get(self,aRace):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByRace(aRace)
         resultList = []
         for row in aFilter:
@@ -41,7 +40,7 @@ class RaceHandler(Resource):
 
 class AgeHandler(Resource):
     def get(self,minVal,maxVal):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByAge(minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -51,7 +50,7 @@ class AgeHandler(Resource):
 
 class PopulationHandler(Resource):
     def get(self,minVal,maxVal):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByPopulation(minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -61,7 +60,7 @@ class PopulationHandler(Resource):
 
 class IncomeHandler(Resource):
     def get(self,minVal,maxVal):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByIncome(minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -70,8 +69,8 @@ class IncomeHandler(Resource):
         return jsonify(IncomeFilter= resultList)
 
 class RaceAgeHandler(Resource):
-    def get(self,minVal,maxVal):
-        dao = InfoDAO()
+    def get(self,aRace,minVal,maxVal):
+        dao = d.InfoDAO()
         aFilter = dao.filterByR_A(aRace,minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -81,7 +80,7 @@ class RaceAgeHandler(Resource):
     
 class RacePopHandler(Resource):
     def get(self,minVal,maxVal):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByR_P(aRace,minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -91,7 +90,7 @@ class RacePopHandler(Resource):
 
 class RaceIncomeHandler(Resource):
     def get(self,minVal,maxVal):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByR_I(aRace,minVal,maxVal)
         resultList = []
         for row in aFilter:
@@ -101,7 +100,7 @@ class RaceIncomeHandler(Resource):
 
 class AgePopHandler(Resource):
     def get(self,minAge,maxAge,minPop,maxPop):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByA_Pop(minAge,maxAge,minPop,maxPop)
         resultList = []
         for row in aFilter:
@@ -111,7 +110,7 @@ class AgePopHandler(Resource):
 
 class AgeIncomeHandler(Resource):
     def get(self,minAge,maxAge,minInc,maxInc):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByA_Income(minAge,maxAge,minPop,maxPop)
         resultList = []
         for row in aFilter:
@@ -121,7 +120,7 @@ class AgeIncomeHandler(Resource):
 
 class PopulationIncomeHandler(Resource):
     def get(self,minPop,maxPop,minInc,maxInc):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByP_Income(minPop,maxPop,minInc,maxInc)
         resultList = []
         for row in aFilter:
@@ -131,7 +130,7 @@ class PopulationIncomeHandler(Resource):
 
 class AgePopulationHandler(Resource):
     def get(self,minAge,maxAge,minPop,maxPop):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByA_Population(minAge,maxAge,minPop,maxPop)
         resultList = []
         for row in aFilter:
@@ -141,7 +140,7 @@ class AgePopulationHandler(Resource):
 
 class AgePopulationIncomeHandler(Resource):
     def get(self,minAge,maxAge,minPop,maxPop,minInc,maxInc):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByA_Pop_Inc(minAge,maxAge,minPop,maxPop,minInc,maxInc)
         resultList = []
         for row in aFilter:
@@ -151,10 +150,11 @@ class AgePopulationIncomeHandler(Resource):
 
 class RaceAgePopulationIncomeHandler(Resource):
     def get(self,aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc):
-        dao = InfoDAO()
+        dao = d.InfoDAO()
         aFilter = dao.filterByR_A_Pop_Inc(aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc)
         resultList = []
         for row in aFilter:
             result = mapToDict(row)
             resultList.append(result)
         return jsonify(AgePopulationFilter= resultList)
+

@@ -3,16 +3,18 @@ import psycopg2
 
 class InfoDAO:
     def __init__(self):
-        connection_url = "dbname=VMATdb user=ec2-user password=Verizon"
-        self.conn = psycopg2._connect(dbname='VMATdb', user='ec2-user', password='Verizon')
+        self.conn = psycopg2._connect('postgres://cpwirdsarlnwup:69935763d40304a0a14838bf5ef99bdb6ec223f9c4da39134f451f7a0a883b38@ec2-54-235-75-214.compute-1.amazonaws.com:5432/d2r3qf9f9fvt9k')
 
     def noFilter(self):
         cursor = self.conn.cursor()
         query = '''Select *
                 From information;'''
         cursor.execute(query)
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
+    
 
     def filterByRace(self, aRace):
         cursor = self.conn.cursor()
@@ -20,7 +22,9 @@ class InfoDAO:
                 From information
                 Where race = %s;'''
         cursor.execute(query,(aRace,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
     
     def filterByAge(self, minAge, maxAge):
@@ -29,7 +33,9 @@ class InfoDAO:
                 From information
                 WHERE age BETWEEN %s and %s;'''
         cursor.execute(query,(minAge, maxAge,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
     def filterByPopulation(self, minPop, maxPop):
@@ -38,7 +44,9 @@ class InfoDAO:
                 From information
                 WHERE population BETWEEN %s and %s;'''
         cursor.execute(query,(minPop, maxPop,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
     def filterByIncome(self,minIncome, maxIncome):
@@ -47,7 +55,9 @@ class InfoDAO:
                 From information
                 WHERE income BETWEEN %s and %s;'''
         cursor.execute(query,(minIncome, maxIncome,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
     def filterByR_A(self, aRace, minAge,maxAge):
@@ -57,7 +67,9 @@ class InfoDAO:
                 WHERE race = %s
                 AND age BETWEEN %s and %s;'''
         cursor.execute(query,(aRace, minAge, maxAge,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
     def filterByR_P(self, aRace, minPop, maxPop):
@@ -67,7 +79,9 @@ class InfoDAO:
                 WHERE race = %s
                 AND population BETWEEN %s and %s;'''
         cursor.execute(query,(aRace, minPop, maxPop,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
     def filterByR_I(self, aRace, minInc,maxInc):
@@ -77,7 +91,9 @@ class InfoDAO:
                 WHERE race = %s
                 AND income BETWEEN %s and %s;'''
         cursor.execute(query,(aRace, minInc, maxInc,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
     
     def filterByA_Pop(minAge,maxAge,minPop,maxPop):
@@ -87,58 +103,70 @@ class InfoDAO:
                 WHERE age BETWEEN %s and %s
                 AND population BETWEEN %s and %s;'''
         cursor.execute(query,(minAge,maxAge,minPop,maxPop,))
-        result = cursor.fetchone()
+        result = []
+        for ror in cursor:
+            result.append(ror)
         return result
 
-        def filterByA_Income(minAge,maxAge,minInc,maxInc):
-            cursor = self.conn.cursor()
-            query = '''Select *
-                    From information
-                    WHERE age BETWEEN %s and %s
-                    AND income BETWEEN %s and %s;'''
-            cursor.execute(query,(minAge,maxAge,minInc,maxInc,))
-            result = cursor.fetchone()
-            return result
+    def filterByA_Income(minAge,maxAge,minInc,maxInc):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information
+                WHERE age BETWEEN %s and %s
+                AND income BETWEEN %s and %s;'''
+        cursor.execute(query,(minAge,maxAge,minInc,maxInc,))
+        result = []
+        for ror in cursor:
+            result.append(ror)
+        return result
 
-        def filterByP_Income(minPop,maxPop,minInc,maxInc):
-            cursor = self.conn.cursor()
-            query = '''Select *
-                    From information
-                    WHERE population BETWEEN %s and %s
-                    AND income BETWEEN %s and %s;'''
-            cursor.execute(query,(minPop,maxPop,minInc,maxInc,))
-            result = cursor.fetchone()
-            return result
-        
-        def filterByA_Population(minAge,maxAge,minPop,maxPop):
-            cursor = self.conn.cursor()
-            query = '''Select *
-                    From information
-                    WHERE age BETWEEN %s and %s
-                    AND population BETWEEN %s and %s;'''
-            cursor.execute(query,(minAge,maxAge,minPop,maxPop,))
-            result = cursor.fetchone()
-            return result
+    def filterByP_Income(minPop,maxPop,minInc,maxInc):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information
+                WHERE population BETWEEN %s and %s
+                AND income BETWEEN %s and %s;'''
+        cursor.execute(query,(minPop,maxPop,minInc,maxInc,))
+        result = []
+        for ror in cursor:
+            result.append(ror)
+        return result
+    
+    def filterByA_Population(minAge,maxAge,minPop,maxPop):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information
+                WHERE age BETWEEN %s and %s
+                AND population BETWEEN %s and %s;'''
+        cursor.execute(query,(minAge,maxAge,minPop,maxPop,))
+        result = []
+        for ror in cursor:
+            result.append(ror)
+        return result
 
-        def filterByA_Pop_Inc(minAge,maxAge,minPop,maxPop,minInc,maxInc):
-            cursor = self.conn.cursor()
-            query = '''Select *
-                    From information
-                    WHERE age BETWEEN %s and %s
-                    AND population BETWEEN %s and %s
-                    AND income BETWEEN %s and %s;'''
-            cursor.execute(query,(minAge,maxAge,minPop,maxPop,minInc,maxInc,))
-            result = cursor.fetchone()
-            return result
+    def filterByA_Pop_Inc(minAge,maxAge,minPop,maxPop,minInc,maxInc):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information
+                WHERE age BETWEEN %s and %s
+                AND population BETWEEN %s and %s
+                AND income BETWEEN %s and %s;'''
+        cursor.execute(query,(minAge,maxAge,minPop,maxPop,minInc,maxInc,))
+        result = []
+        for ror in cursor:
+            result.append(ror)
+        return result
 
-        def filterByR_A_Pop_Inc(aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc):
-            cursor = self.conn.cursor()
-            query = '''Select *
-                    From information
-                    WHERE race = %s
-                    AND age BETWEEN %s and %s
-                    AND population BETWEEN %s and %s
-                    AND income BETWEEN %s and %s;'''
-            cursor.execute(query,(aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc,))
-            result = cursor.fetchone()
-            return result
+    def filterByR_A_Pop_Inc(aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc):
+        cursor = self.conn.cursor()
+        query = '''Select *
+                From information
+                WHERE race = %s
+                AND age BETWEEN %s and %s
+                AND population BETWEEN %s and %s
+                AND income BETWEEN %s and %s;'''
+        cursor.execute(query,(aRace,minAge,maxAge,minPop,maxPop,minInc,maxInc,))
+        result = []
+        for ror in cursor:
+            result.append(ror)
+        return result
